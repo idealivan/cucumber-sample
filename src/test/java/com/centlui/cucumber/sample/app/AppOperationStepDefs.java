@@ -10,18 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 
-/**
- * <p>
- * Copyright 2015 Alibaba.com All right reserved. This software is the
- * confidential and proprietary information of Alibaba.com ("Confidential
- * Information"). You shall not disclose such Confidential Information and shall
- * use it only in accordance with the terms of the license agreement you entered
- * into with Alibaba.com.
- * </p>
- * Created at 2015-12-19 16:29 by by @author : 风樵(shuangtao.lst@alibaba-inc.com)
- * Project : wdm-test
- * Description :
- */
 public class AppOperationStepDefs {
     private static final Logger log = LoggerFactory.getLogger(AppOperationStepDefs.class);
 
