@@ -8,7 +8,7 @@ Cucumber是BDD模式下实现可执行规范（Executable Specifications)的开�
 Cucumber有很多种语言的实现版本，例如Java、Ruby、.NET、JavaScript等等，并且Cucumber可以和主流的测试框架很好地集成，常见的Selenium、SpringFramework、Ruby on Rails等，能够方便地引入到你的测试工作中去，几乎没有任何门槛。以一个Java测试项目为例，介绍如何使用Cucumber的Java语言实现版本：Cucumber-JVM。
 
 #### 将Cucumber-JVM依赖加入到项目中
-如果你的项目是使用Maven管理所依赖的第三方依赖jar包，那么引入Cucumber-JVM将是一件优雅而且轻松的事情，只需要简单的将如下的Code Snippet加入到项目的pom.xml的“<dependencies>”下即可：
+如果你的项目是使用Maven管理所依赖的第三方依赖jar包，那么引入Cucumber-JVM将是一件优雅而且轻松的事情，只需要简单的将如下的Code Snippet加入到项目的pom.xml的“dependencies”下即可：
 ``` xml
 	<dependency>
 		<groupId>info.cukes</groupId>
@@ -38,7 +38,12 @@ Cucumber之所以受到如此的推崇，与其Executable Specification这个特
 
 这看似简单的两方面似乎关联并不是很大，但是如何能够在同一个基础（feature files）之上做到两者的融合，却是Cucumber最大的妙处。*从项目管理人员的角度来看，Cucumber是技术人员和非技术人员交流的桥梁，从更加深的层面来看，Cucumber能够使增加各个利益相关方的沟通，因为只有深入的沟通，在各方都理解了真正期望的功能这一基础之上，才能产出都认可的Executable Specification！*
 
-回归到工具这一层面，Cucumber是以feature文件来组织测试的，相信大家都很清楚这里之所以采用feature这个后缀，其实正是为了凸显用户在使用系统中所能够享受到的服务和功能。以ATM取钱场景为例子，通过如下的大致步骤：创建feature文件，生成测试Step Definitions，运行测试用例来具体说明如何在测试工作中使用Cucumber。
+回归到工具这一层面，Cucumber是以feature文件来组织测试的，相信大家都很清楚这里之所以采用feature这个后缀，其实正是为了凸显用户在使用系统中所能够享受到的服务和功能。以ATM取钱场景为例子，通过如下的大致步骤：
+ - 创建feature文件，
+ - 生成测试Step Definitions，
+ - 运行测试用例。
+
+来具体说明如何在测试工作中使用Cucumber。
 
 ##### 创建Feature文件
 自动柜员机（ATM）大家都非常熟悉，现在假设你在为某一个银行所提供的固定金额取款功能编写测试用例，经过跟利益相关方讨论之后，针对这一功能，你们得出了如下的场景定义，此处以Feature文件的形式写出来：
@@ -81,7 +86,7 @@ Cucumber之所以受到如此的推崇，与其Executable Specification这个特
       | but (code)       | "但是"                   |
 ```
  - 2，采用中文描述feature文件，首先得益于Cucumber本身的支持，但是另外一个最重要的原因是我期望所描述的功能可以被利益相关方清楚地读懂，使用利益相关方的Spoken Language来撰写规范可以使沟通更加方便，是Cucumber的有一大利器；
- - 3，如果不使用``这个header，默认情况下，Cucumber会以英语解析feature文件寻找场景和Steps，此时，Gherkin的关键词必须使用英文：
+ - 3，如果不使用`# language: zh-CN`这个header，默认情况下，Cucumber会以英语解析feature文件寻找场景和Steps，此时，Gherkin的关键词必须使用英文：
  ``` gherkin
 Feature: 使用ATM固定金额方式取款
   通常“取款”菜单包含了几个固定金额，使用这些固定金额取款可以避免从键盘输入提取金额，从而可以加速交易，提高取款的效率。
@@ -157,22 +162,22 @@ Cucumber测试用例有两种方式可以启动，debug mode下，两种方式�
   - a，创建一个空白的JUnit Test：所谓空白就是在JUnit Test类中没有任何方法；
   - b，按照Cucumber所提供的Options annotation来引入所需要使用的feature文件和Steps definitions类；
   - c，按照需要设置报告格式等，下面是以JUnit方式触发FixedAmountWithdraw.feature文件的配置Sample；
-  ``` gherkin
-    package io.cucumber.samples.dw;
+      ``` gherkin
+        package io.cucumber.samples.dw;
 
-    import cucumber.api.CucumberOptions;
-    import cucumber.api.junit.Cucumber;
-    import org.junit.runner.RunWith;
+        import cucumber.api.CucumberOptions;
+        import cucumber.api.junit.Cucumber;
+        import org.junit.runner.RunWith;
 
-    @RunWith(Cucumber.class)
-    @CucumberOptions(
-            format = {"json:target/json-report/dw.json"}
-            , features = {"classpath:features/FixedAmountWithdraw.feature"}
-            , glue = {"io.cucumber.samples.dw.steps"}
-    )
-    public class AppTest {
-    }
-  ```
+        @RunWith(Cucumber.class)
+        @CucumberOptions(
+                format = {"json:target/json-report/dw.json"}
+                , features = {"classpath:features/FixedAmountWithdraw.feature"}
+                , glue = {"io.cucumber.samples.dw.steps"}
+        )
+        public class AppTest {
+        }
+      ```
   - d，然后就可以以JUnit用例的方式运行或者调试测试用例的实现了，此处不再赘述。
  *Eclipse和Intellij IDEA都支持这样的调试方式*
 - 2，IDEA下直接运行Scenario/Scenario Outline
@@ -210,9 +215,10 @@ Cucumber还支持为Scenario指定标签（tag），tag是以“@”字符开头
       | 1000.00        | 1100.00        | 0.00           | 1000.00          |
       | 500.00         | 600.00         | 0.00           | 500.00           |
 ```
+其中
 
 |Tag修饰对象|表述的意义|
-|-|-|-|
+|---|---|
 |Feature|该Feature文件中的所有Scenario和Scenario Outline都会继承修饰在Feature的tag，比如上例中的@withdraw|
 |Scenario / Scenario Outline|表示tag适用于Scenario/Scenario Outline，Scenario Outline下的Examples会继承定义在其上的tag，比如上例中的@fixedAmount|
 |Examples|只对Scenario Outline及当前的Examples有效，比如上例中的@positive和@negative|
@@ -278,12 +284,13 @@ Cucumber本身支持多种报告格式以适用于不同环境下调用的报告
 这里说的测试报告失真是以Maven调用的方式运行Cucumber测试用例时才会出现，但是这种运行方式是大家在持续集成环境中经常会用到的，因此，此处才对这种情况加以处理，以避免在持续集成环境下出现测试报告失真。
 一般情况下我们在Maven中执行测试用例只需要运行命令`mvn test`即可，下面是一次运行中给出的结果：
   ![Maven Console Report](../images/maven_junit_report.png)
+
 从中可以看出：
 - Cucumber提示运行了4个Scenario一共16个Step且全部通过了；
 - 可以理解成一共执行了4个JUnit测试用例，没有失败或编译错误；
 - 但是Maven给出的报告却提示运行了20个Test，全部通过。
 
-这就造成了运行报告的失真：![](http://)
+这就造成了运行报告的失真：
 
 - 1，事实上没有那么多测试用例，但是Maven却给出了数倍于真实的测试用例；
 - 2，如果有一个失败，其失败率明显会低于真实情况；
